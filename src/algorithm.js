@@ -33,12 +33,12 @@ function isConverged(old_centers, new_centers) {
  * @param {number} max_iterations 算法需要迭代的最大次数
  * @return {Array<Object>} 抽取出的中心点数组
  */
-export function kmeans(pixels_array, k, max_iterations = 100) {
+export async function kmeans(pixels_array, k = 6, max_iterations = 100) {
   let centers = pixels_array.sort(() => 0.5 - Math.random()).slice(0, k);
   let old_centers = [];
   const iterations = 0;
   while (isConverged(old_centers, centers) && iterations++ <= max_iterations) {
-    old_centers = centers.slice();
+    old_centers = centers.map(c => [...c]);
     let clusters = Array(k)
       .fill()
       .map(() => []);
@@ -61,4 +61,45 @@ export function kmeans(pixels_array, k, max_iterations = 100) {
     });
   }
   return centers;
+}
+
+/**
+ * 计算一个像素点的明度用于后续的明度排序
+ * @param {Array<number>} point 需要计算明度的点
+ * @return {Number} 最后得出的明度
+ * 根据 `https://www.w3.org/TR/WCAG20/#relativeluminancedef` 公式得出
+ */
+function getLuminance(point) {
+  const [LR, LG, LB] = point.map((val) => {
+    const s_val = val / 255;
+    if (s_val <= 0.03928) {
+      return s_val / 12.92;
+    } else {
+      return Math.pow((s_val + 0.055) / 1.055, 2.4);
+    }
+  });
+  return 0.2126 * LR + 0.7152 * LG + 0.0722 * LB;
+}
+
+/**
+ * 对生成的颜色进行明度排序
+ * @param {Array<Object>} points 需要进行排列的颜色点
+ * @param {boolean} order 是否按照由大到小排列
+ * @return {Array<Object>} 最后生成的排序后的颜色集合
+ */
+export function sortColorbyLuminance(points, order) {
+  if (order) return points.sort((a, b) => getLuminance(a) - getLuminance(b));
+  else return points.sort((a, b) => getLuminance(b) - getLuminance(a));
+}
+
+/**
+ * 将8bitRGB格式转换为十六进制
+ * (255,255,255) => #ffffff
+ * @param {number} r
+ * @param {number} g
+ * @param {number} b
+ * @return {string} #ffffff
+ */
+export function rgbToHex(r, g, b) {
+  return `#${r.toString(16)}${g.toString(16)}${b.toString(16)}`;
 }

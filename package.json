@@ -1,13 +1,10 @@
 {
-  "name": "image-color-extractor",
+  "name": "picture-color-theme-picker",
   "version": "1.0.0",
   "description": "Pick the Color Theme via Pictures",
   "main": "src/index.js",
-  "bin": {
-    "color-extractor": "bin/color-picker.js"
-  },
   "scripts": {
-    "test": "jest",
+    "test": "jest --verbose",
     "build": "mkdir -p dist && cp -r src bin package.json README.md dist/",
     "prepublishOnly": "npm run build"
   },
@@ -21,7 +18,7 @@
   "author": "MappyJ",
   "license": "MIT",
   "dependencies": {
-    "canvas": "^2.11.2",
+    "canvas": "^3.1.0",
     "commander": "^11.1.0"
   },
   "engines": {
@@ -43,6 +40,7 @@
     "@babel/core": "^7.27.1",
     "@babel/preset-env": "^7.27.2",
     "babel-jest": "^29.7.0",
-    "jest": "^29.7.0"
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0"
   }
 }

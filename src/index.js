@@ -1,11 +1,11 @@
-import { kmeans } from "./algorithm";
+import { kmeans, sortColorbyLuminance, rgbToHex } from "./algorithm";
 
 /**
  * 统一化传入图片类型
  * @param {string | Image} src 传入图片url或data
  * @return {Image} 图片data
  */
-async function loadImage(src) {
+export async function loadImage(src) {
   return new Promise((resolve, reject) => {
     const img = typeof src === "string" ? new Image() : src;
 
@@ -25,10 +25,10 @@ async function loadImage(src) {
 
 /**
  * 将图片的像素进行抽样插入数组
- * @param {ImageData} pic 待处理图片
+ * @param {Image} pic 待处理图片
  * @return {Array<Object>} 像素数据点集合
  */
-function getPixelsArray(pic) {
+export async function getPixelsArray(pic) {
   const canvas = document.createElement("canvas");
   const ctx = canvas.getContext("2d");
   const MAX_DIMENSION = 100;
@@ -45,6 +45,8 @@ function getPixelsArray(pic) {
       width *= MAX_DIMENSION / pic.height;
     }
   }
+  canvas.width = width;
+  canvas.height = height;
   ctx.drawImage(pic, 0, 0, width, height);
   const pixels = ctx.getImageData(0, 0, width, height).data;
   const pixels_array = [];
@@ -66,15 +68,16 @@ function getPixelsArray(pic) {
 }
 
 /**
- * 生成主题色函数
- * @param {string | Image} url 图片资源
+ * 使用K-means算法生成主题色函数
+ * @param {string | Image} src 图片资源
  * @param {number} k 需要生成的颜色数量
  * @returns {Array<Object>} 生成的颜色数组
  */
-export async function generateTheme(url, k) {
-  return new Promise((resolve, reject) => {
-    let img = loadImage(url);
-    let pixels_array = getPixelsArray(img);
-    resolve(kmeans(pixels_array, k));
-  });
+export async function generateTheme(src, k) {
+  const img = await loadImage(src);
+  const color_theme_points = await kmeans(await getPixelsArray(img), k);
+  sortColorbyLuminance(color_theme_points, true);
+  return color_theme_points.map((point) =>
+    rgbToHex(point[0], point[1], point[2])
+  );
 }

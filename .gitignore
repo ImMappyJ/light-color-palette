@@ -12,3 +12,6 @@ build/
 # 编辑器缓存
 .idea/
 .vscode/
+
+# 测试环境
+__test__/test.js
