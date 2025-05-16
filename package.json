@@ -1,15 +1,48 @@
 {
-  "name": "picture-color-theme-picker",
+  "name": "image-color-extractor",
   "version": "1.0.0",
-  "description": "Generate the color theme via pictures",
-  "main": "dist/index.js",
+  "description": "Pick the Color Theme via Pictures",
+  "main": "src/index.js",
+  "bin": {
+    "color-extractor": "bin/color-picker.js"
+  },
   "scripts": {
-    "build": "webpack --config webpack.config.js"
+    "test": "jest",
+    "build": "mkdir -p dist && cp -r src bin package.json README.md dist/",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "image",
+    "color extraction",
+    "k-means",
+    "nodejs",
+    "npm"
+  ],
+  "author": "MappyJ",
+  "license": "MIT",
+  "dependencies": {
+    "canvas": "^2.11.2",
+    "commander": "^11.1.0"
+  },
+  "engines": {
+    "node": ">=14.0.0"
   },
   "files": [
-    "dist"
+    "src",
+    "bin"
   ],
-  "keywords": [],
-  "author": "MappyJ",
-  "license": "MIT"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ImMappyJ/picture-color-theme-picker.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ImMappyJ/picture-color-theme-picker/issues"
+  },
+  "homepage": "https://github.com/ImMappyJ/picture-color-theme-picker#readme",
+  "devDependencies": {
+    "@babel/core": "^7.27.1",
+    "@babel/preset-env": "^7.27.2",
+    "babel-jest": "^29.7.0",
+    "jest": "^29.7.0"
+  }
 }
