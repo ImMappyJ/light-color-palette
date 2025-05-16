@@ -1,0 +1,15 @@
+{
+  "name": "picture-color-theme-picker",
+  "version": "1.0.0",
+  "description": "Generate the color theme via pictures",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "webpack --config webpack.config.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "keywords": [],
+  "author": "MappyJ",
+  "license": "MIT"
+}
