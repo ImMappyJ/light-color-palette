@@ -17,32 +17,34 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'yarn'  # 指定使用 Yarn 缓存
-      
+          cache: 'npm'  # 指定使用 NPM 缓存
+
       - name: 安装依赖
-        run: yarn install --frozen-lockfile  # 使用 Yarn 并强制使用锁文件
-      
+        run: npm install  # 基于 package.json 安装依赖，自动生成 package-lock.json
+
       - name: 运行测试
-        run: yarn test
+        run: npm test  # 执行测试脚本（需在 package.json 中定义 "test" 命令）
 
   publish-npm:
     needs: build
     runs-on: ubuntu-latest
+    permissions:
+      packages: write  # 发布到 npm 所需权限
     steps:
       - name: 检出代码
         uses: actions/checkout@v4
       
-      - name: 设置 Node.js
+      - name: 设置 Node.js 并配置 npm  registry
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          registry-url: https://registry.npmjs.org/
-          cache: 'yarn'  # 同样启用 Yarn 缓存
-      
-      - name: 安装依赖
-        run: yarn install --frozen-lockfile
-      
+          registry-url: https://registry.npmjs.org/  # 指定 npm 仓库地址
+          cache: 'npm'  # 启用 NPM 缓存
+
+      - name: 安装依赖（确保环境一致）
+        run: npm ci  # 使用 package-lock.json 安装纯净依赖（CI 环境推荐）
+
       - name: 发布到 npm
-        run: yarn publish
+        run: npm publish --access public  # 发布公共包，如需私有包可移除 --access public
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.npm_token }}
+          NODE_AUTH_TOKEN: ${{ secrets.npm_token }}  # 注入 npm 认证令牌
