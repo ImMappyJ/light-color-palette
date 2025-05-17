@@ -16,3 +16,4 @@ build/
 # 测试环境
 __test__/test.js
 theme/
+yarn-error.log
