@@ -1,34 +1,48 @@
-# This workflow will run tests using node and then publish a package to GitHub Packages when a release is created
-# For more information see: https://docs.github.com/en/actions/publishing-packages/publishing-nodejs-packages
-
 name: Node.js Package
 
 on:
   release:
     types: [created]
+  push:
+    branches: [main]  # 可修改为你的主分支（如 master、main 等）
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: 检出代码
+        uses: actions/checkout@v4
+      
+      - name: 设置 Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: 20
-      - run: yarn install
-      - run: npm ci
-      - run: npm test
+          cache: 'yarn'  # 指定使用 Yarn 缓存
+      
+      - name: 安装依赖
+        run: yarn install --frozen-lockfile  # 使用 Yarn 并强制使用锁文件
+      
+      - name: 运行测试
+        run: yarn test
 
   publish-npm:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: 检出代码
+        uses: actions/checkout@v4
+      
+      - name: 设置 Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: 20
           registry-url: https://registry.npmjs.org/
-      - run: npm ci
-      - run: npm publish
+          cache: 'yarn'  # 同样启用 Yarn 缓存
+      
+      - name: 安装依赖
+        run: yarn install --frozen-lockfile
+      
+      - name: 发布到 npm
+        run: yarn publish
         env:
-          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
+          NODE_AUTH_TOKEN: ${{ secrets.npm_token }}
