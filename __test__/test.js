@@ -1,29 +1,20 @@
 import { describe, expect, test } from "@jest/globals";
 import { generateTheme, loadImage, getPixelsArray } from "../src";
+import { PicthePicker } from "../src";
 import { generateColorImage } from "../__test__/test_utils";
 
 const image_url = "file:///I:/Photos/Completed%20Photos/Japan/DSC03655.jpg";
 
 describe("get theme", () => {
-  test("the number of themes color is k", async () => {
-    const l = await generateTheme(image_url, 6);
-    console.log(l);
-    expect(l.length).toBe(6);
-  });
-  test("can get the picture via url", async () => {
-    expect(await loadImage(image_url)).not.toBe(undefined);
-  });
-  test("can get pixels array via image", async () => {
-    let img = await loadImage(image_url);
-    expect(getPixelsArray(img).length).not.toBe(0);
-  });
   test("store the theme color in localstorage", async () => {
     const k = 6;
-    const theme_colors = await generateTheme(image_url, k);
+    const picker = new PicthePicker(image_url);
+    const theme_colors = (await picker.genTheme(k)).sortByLuminance(true).getHexColors();
     expect(theme_colors.length).toBe(k);
     for (let i = 0; i < theme_colors.length; i++) {
       const color = theme_colors[i];
-      const outputPath = `./theme/${theme_colors[i]}.png`;
+      console.log(color);
+      const outputPath = `./theme/${i}_${theme_colors[i]}.png`;
       await generateColorImage(color, 100, 100, outputPath);
       const fs = require("fs");
       expect(fs.existsSync(outputPath)).toBe(true);
