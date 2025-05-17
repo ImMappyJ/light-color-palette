@@ -5,7 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "test": "jest --verbose",
-    "build": "mkdir -p dist && cp -r src bin package.json README.md dist/",
+    "build": "mkdir -p dist && babel src -d dist",
     "prepublishOnly": "npm run build"
   },
   "keywords": [

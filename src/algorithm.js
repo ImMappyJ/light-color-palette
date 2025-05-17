@@ -70,7 +70,7 @@ export async function kmeans(pixels_array, k = 6, max_iterations = 100) {
  * @return {Number} 最后得出的明度
  * 根据 `https://www.w3.org/TR/WCAG20/#relativeluminancedef` 公式得出
  */
-function getLuminance(point) {
+export function getLuminance(point) {
   const [LR, LG, LB] = point.map((val) => {
     const s_val = val / 255;
     if (s_val <= 0.03928) {
@@ -83,14 +83,16 @@ function getLuminance(point) {
 }
 
 /**
- * 对生成的颜色进行明度排序
+ * 对生成的颜色进行排序
  * @param {Array<Object>} points 需要进行排列的颜色点
- * @param {boolean} order 是否按照明度由小到大排列
+ * @param {boolean} order 是否按照由小到大排列
+ * @param {Function} algorithm 遵从何种方法进行排序
  * @return {Array<Object>} 最后生成的排序后的颜色集合
  */
-export function sortColorbyLuminance(points, order) {
-  if (order) return points.sort((a, b) => getLuminance(a) - getLuminance(b));
-  else return points.sort((a, b) => getLuminance(b) - getLuminance(a));
+export function sortColor(points, order, algorithm) {
+  return order
+    ? points.sort((a, b) => algorithm(a) - algorithm(b))
+    : points.sort((a, b) => algorithm(b) - algorithm(a));
 }
 
 /**
@@ -102,5 +104,7 @@ export function sortColorbyLuminance(points, order) {
  * @return {string} #ffffff
  */
 export function rgbToHex(r, g, b) {
-  return `#${r.toString(16).padStart(2,"0")}${g.toString(16).padStart(2,"0")}${b.toString(16).padStart(2,"0")}`;
+  return `#${r.toString(16).padStart(2, "0")}${g
+    .toString(16)
+    .padStart(2, "0")}${b.toString(16).padStart(2, "0")}`;
 }
