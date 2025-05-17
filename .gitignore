@@ -13,6 +13,6 @@ build/
 .vscode/
 
 # 测试环境
-__test__/test.js
+__test__/
 theme/
 yarn-error.log
