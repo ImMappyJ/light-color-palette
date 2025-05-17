@@ -23,7 +23,7 @@ describe("get theme", () => {
     expect(theme_colors.length).toBe(k);
     for (let i = 0; i < theme_colors.length; i++) {
       const color = theme_colors[i];
-      const outputPath = `./theme/color_${i + 1}.png`;
+      const outputPath = `./theme/${theme_colors[i]}.png`;
       await generateColorImage(color, 100, 100, outputPath);
       const fs = require("fs");
       expect(fs.existsSync(outputPath)).toBe(true);
