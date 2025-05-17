@@ -1,14 +1,14 @@
 /**
- * 计算色点与色点之间的欧氏距离的平方
+ * 计算色点与色点之间的欧氏距离
  * @param {Array<number>} point1 第一个点
  * @param {Array<number>} point2 第二个点
- * @return {number} 距离的平方
+ * @return {number} 距离
  */
 function euclideanDistance(point1, point2) {
-  return (
+  return Math.sqrt(
     Math.pow(point1[0] - point2[0], 2) +
-    Math.pow(point1[1] - point2[1], 2) +
-    Math.pow(point1[2] - point2[2], 2)
+      Math.pow(point1[1] - point2[1], 2) +
+      Math.pow(point1[2] - point2[2], 2)
   );
 }
 
@@ -36,9 +36,9 @@ function isConverged(old_centers, new_centers) {
 export async function kmeans(pixels_array, k = 6, max_iterations = 100) {
   let centers = pixels_array.sort(() => 0.5 - Math.random()).slice(0, k);
   let old_centers = [];
-  const iterations = 0;
-  while (isConverged(old_centers, centers) && iterations++ <= max_iterations) {
-    old_centers = centers.map(c => [...c]);
+  let iterations = 0;
+  while (!isConverged(old_centers, centers) && iterations++ <= max_iterations) {
+    old_centers = centers.map((c) => [...c]);
     let clusters = Array(k)
       .fill()
       .map(() => []);
@@ -52,14 +52,15 @@ export async function kmeans(pixels_array, k = 6, max_iterations = 100) {
         return pixels_array[Math.floor(Math.random() * pixels_array.length)];
       } else {
         const sum = points.reduce((acc, val) => {
-          acc.map((x, i) => {
+          return acc.map((x, i) => {
             return x + val[i];
           });
         }, Array(3).fill(0));
-        return sum.map((x) => Math.round(x / clusters.length));
+        return sum.map((x) => Math.round(x / points.length));
       }
     });
   }
+  console.log(`一共迭代了${iterations}次`);
   return centers;
 }
 
@@ -84,7 +85,7 @@ function getLuminance(point) {
 /**
  * 对生成的颜色进行明度排序
  * @param {Array<Object>} points 需要进行排列的颜色点
- * @param {boolean} order 是否按照由大到小排列
+ * @param {boolean} order 是否按照明度由小到大排列
  * @return {Array<Object>} 最后生成的排序后的颜色集合
  */
 export function sortColorbyLuminance(points, order) {
@@ -101,5 +102,5 @@ export function sortColorbyLuminance(points, order) {
  * @return {string} #ffffff
  */
 export function rgbToHex(r, g, b) {
-  return `#${r.toString(16)}${g.toString(16)}${b.toString(16)}`;
+  return `#${r.toString(16).padStart(2,"0")}${g.toString(16).padStart(2,"0")}${b.toString(16).padStart(2,"0")}`;
 }

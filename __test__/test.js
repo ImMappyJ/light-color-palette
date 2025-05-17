@@ -2,11 +2,13 @@ import { describe, expect, test } from "@jest/globals";
 import { generateTheme, loadImage, getPixelsArray } from "../src";
 import { generateColorImage } from "../__test__/test_utils";
 
-const image_url = "file:///D:/Image/120672249_p0.jpg";
+const image_url = "file:///I:/Photos/Completed%20Photos/Japan/DSC03655.jpg";
 
 describe("get theme", () => {
   test("the number of themes color is k", async () => {
-    expect((await generateTheme(image_url, 6)).length).toBe(6);
+    const l = await generateTheme(image_url, 6);
+    console.log(l);
+    expect(l.length).toBe(6);
   });
   test("can get the picture via url", async () => {
     expect(await loadImage(image_url)).not.toBe(undefined);
@@ -16,7 +18,7 @@ describe("get theme", () => {
     expect(getPixelsArray(img).length).not.toBe(0);
   });
   test("store the theme color in localstorage", async () => {
-    const k = 3;
+    const k = 6;
     const theme_colors = await generateTheme(image_url, k);
     expect(theme_colors.length).toBe(k);
     for (let i = 0; i < theme_colors.length; i++) {

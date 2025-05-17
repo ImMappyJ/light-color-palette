@@ -31,7 +31,7 @@ export async function loadImage(src) {
 export async function getPixelsArray(pic) {
   const canvas = document.createElement("canvas");
   const ctx = canvas.getContext("2d");
-  const MAX_DIMENSION = 100;
+  const MAX_DIMENSION = 200;
   let width = pic.width;
   let height = pic.height;
   if (width > height) {
