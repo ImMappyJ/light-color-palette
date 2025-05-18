@@ -8,6 +8,8 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write # 关键配置：授予内容写入权限
 
     steps:
       - name: Checkout code
