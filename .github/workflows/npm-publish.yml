@@ -41,16 +41,7 @@ jobs:
       - name: 安装依赖（确保环境一致）
         run: npm ci 
 
-      - name: 生成 OTP 验证码
-        id: otp
-        run: |
-          npm install -g otpauth
-          OTP=$(npx otpauth --secret ${{ secrets.NPM_2FA_SECRET }})
-          echo "otp=$OTP" >> $GITHUB_ENV
-        env:
-          NPM_2FA_SECRET: ${{ secrets.NPM_2FA_SECRET }} 
-
       - name: 发布到 npm
-        run: npm publish --access public --otp ${{ env.otp }} 
+        run: npm publish --access public 
         env:
           NODE_AUTH_TOKEN: ${{ secrets.npm_token }} 
