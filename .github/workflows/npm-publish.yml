@@ -4,7 +4,7 @@ on:
   release:
     types: [created]
   push:
-    branches: [main]  # 可修改为你的主分支（如 master、main 等）
+    branches: [main] 
 
 jobs:
   build:
@@ -17,31 +17,40 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm'  # 指定使用 NPM 缓存
+          cache: 'npm' 
 
       - name: 安装依赖
-        run: npm install  # 基于 package.json 安装依赖，自动生成 package-lock.json
+        run: npm install 
 
   publish-npm:
     needs: build
     runs-on: ubuntu-latest
     permissions:
-      packages: write  # 发布到 npm 所需权限
+      packages: write 
     steps:
       - name: 检出代码
         uses: actions/checkout@v4
       
-      - name: 设置 Node.js 并配置 npm  registry
+      - name: 设置 Node.js 并配置 npm registry
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          registry-url: https://registry.npmjs.org/  # 指定 npm 仓库地址
-          cache: 'npm'  # 启用 NPM 缓存
+          registry-url: https://registry.npmjs.org/ 
+          cache: 'npm' 
 
       - name: 安装依赖（确保环境一致）
-        run: npm ci  # 使用 package-lock.json 安装纯净依赖（CI 环境推荐）
+        run: npm ci 
+
+      - name: 生成 OTP 验证码
+        id: otp
+        run: |
+          npm install -g otpauth
+          OTP=$(npx otpauth --secret ${{ secrets.NPM_2FA_SECRET }})
+          echo "otp=$OTP" >> $GITHUB_ENV
+        env:
+          NPM_2FA_SECRET: ${{ secrets.NPM_2FA_SECRET }} 
 
       - name: 发布到 npm
-        run: npm publish --access public  # 发布公共包，如需私有包可移除 --access public
+        run: npm publish --access public --otp ${{ env.otp }} 
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.npm_token }}  # 注入 npm 认证令牌
+          NODE_AUTH_TOKEN: ${{ secrets.npm_token }} 
