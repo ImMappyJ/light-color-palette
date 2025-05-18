@@ -60,7 +60,6 @@ export async function kmeans(pixels_array, k = 6, max_iterations = 100) {
       }
     });
   }
-  console.log(`一共迭代了${iterations}次`);
   return centers;
 }
 
@@ -80,6 +79,15 @@ export function getLuminance(point) {
     }
   });
   return 0.2126 * LR + 0.7152 * LG + 0.0722 * LB;
+}
+
+/**
+ * 获取与#000000的绝对欧氏距离用于亮度排序
+ * @param {Array<number>} point 需要计算的点
+ * @returns {number} 欧氏距离
+ */
+export function getBrightness(point) {
+  return euclideanDistance(point, [0, 0, 0]);
 }
 
 /**

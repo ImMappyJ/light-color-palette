@@ -1,4 +1,10 @@
-import { kmeans, rgbToHex, sortColor, getLuminance } from "./algorithm";
+import {
+  kmeans,
+  rgbToHex,
+  sortColor,
+  getLuminance,
+  getBrightness,
+} from "./algorithm";
 import { loadImage, getPixelsArray } from "./utils";
 
 export class PicthePicker {
@@ -24,6 +30,16 @@ export class PicthePicker {
    */
   sortByLuminance(order) {
     sortColor(this.points, order, getLuminance);
+    return this;
+  }
+
+  /**
+   * 进行亮度排序
+   * @param {boolean} order 排列顺序 true为低到高
+   * @returns {PicthePicker}
+   */
+  sortByBrightness(order) {
+    sortColor(this.points, order, getBrightness);
     return this;
   }
 
