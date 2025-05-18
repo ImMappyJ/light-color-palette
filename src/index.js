@@ -2,9 +2,6 @@ import { kmeans, rgbToHex, sortColor, getLuminance } from "./algorithm";
 import { loadImage, getPixelsArray } from "./utils";
 
 export class PicthePicker {
-  #src;
-  #points = [];
-  #img
   constructor(src) {
     this.src = src;
   }
