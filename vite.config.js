@@ -15,6 +15,6 @@ export default defineConfig({
   },
   base:
     process.env.NODE_ENV === 'production'
-      ? '/picture-color-theme-picker-demo/' // 替换为你的 GitHub 仓库名（如：'/picture-color-theme-picker-demo/'）
+      ? '/picture-color-theme-picker-demo/'
       : '/',
 })
