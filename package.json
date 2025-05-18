@@ -10,7 +10,7 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
-    "picture-color-theme-picker": "^1.0.2",
+    "picture-color-theme-picker": "^1.0.3",
     "vue": "^3.5.13"
   },
   "devDependencies": {
