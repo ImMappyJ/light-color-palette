@@ -1,4 +1,10 @@
-# Picture-Color-Theme-Picker
+<h2 align="center">
+PictureColorThemePicker
+</h2>
+
+<center>
+<img src="images/icon.png" width="128px"/>
+</center>
 
 ![GitHub package.json version](https://img.shields.io/github/package-json/v/immappyj/picture-color-theme-picker)
 ![License](https://img.shields.io/npm/l/picture-color-theme-picker)
