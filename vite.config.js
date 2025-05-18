@@ -7,14 +7,14 @@ import vueDevTools from 'vite-plugin-vue-devtools'
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [
-    vue(),
-    vueJsx(),
-    vueDevTools(),
-  ],
+  plugins: [vue(), vueJsx(), vueDevTools()],
   resolve: {
     alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url))
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
   },
+  base:
+    process.env.NODE_ENV === 'production'
+      ? '/picture-color-theme-picker-demo/' // 替换为你的 GitHub 仓库名（如：'/picture-color-theme-picker-demo/'）
+      : '/',
 })
