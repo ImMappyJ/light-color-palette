@@ -1,7 +1,7 @@
 /**
  * 统一化传入图片类型
  * @param {string | Image} src 传入图片url或data
- * @return {Promise<Image>} 图片data
+ * @returns {Promise<Image>} 图片data
  */
 export function loadImage(src) {
   return new Promise((resolve, reject) => {
@@ -24,7 +24,7 @@ export function loadImage(src) {
 /**
  * 将图片的像素进行抽样插入数组
  * @param {Image} pic 待处理图片
- * @return {Array<Object>} 像素数据点集合
+ * @returns {Array<Object>} 像素数据点集合
  */
 export function getPixelsArray(pic) {
   const canvas = document.createElement("canvas");

@@ -1,5 +1,5 @@
 const config = {
-  testEnvironment: 'jsdom',
+  testEnvironment: 'node',
   testEnvironmentOptions: {
     html: '<html lang="zh-cmn-Hant"></html>',
     url: 'https://jestjs.io/',

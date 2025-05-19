@@ -2,7 +2,7 @@
  * 计算色点与色点之间的欧氏距离
  * @param {Array<number>} point1 第一个点
  * @param {Array<number>} point2 第二个点
- * @return {number} 距离
+ * @returns {number} 距离
  */
 function euclideanDistance(point1, point2) {
   return Math.sqrt(
@@ -11,10 +11,41 @@ function euclideanDistance(point1, point2) {
       Math.pow(point1[2] - point2[2], 2)
   );
 }
+
+/**
+ * 
+ * @param {Array<number>} point 
+ * @returns {}
+ */
+export function getHue(point) {
+  const [r, g, b] = point;
+  const max = Math.max(r, g, b);
+  const min = Math.min(r, g, b);
+  let hue = 0;
+  if (max === min) {
+    hue = 0;
+  } else {
+    const delta = max - min;
+
+    if (max === r) {
+      hue = ((g - b) / delta) % 6;
+    } else if (max === g) {
+      hue = (b - r) / delta + 2;
+    } else {
+      hue = (r - g) / delta + 4;
+    }
+
+    hue = Math.round(hue * 60);
+    if (hue < 0) hue += 360;
+  }
+
+  return hue;
+}
+
 /**
  * 获取该颜色的饱和度
  * @param {Array<number>} point
- * @return {number} 饱和度
+ * @returns {number} 饱和度
  */
 export function getSaturation(point) {
   const rgb = point.map((c) => c / 255);
@@ -27,7 +58,7 @@ export function getSaturation(point) {
  * 判断算法是否收敛
  * @param {Array<Object>} old_centers 上一批中心点
  * @param {Array<Object>} new_centers 当前中心点
- * @return {boolean} 是否收敛
+ * @returns {boolean} 是否收敛
  */
 function isConverged(old_centers, new_centers) {
   if (old_centers.length == 0) return false;
@@ -42,7 +73,7 @@ function isConverged(old_centers, new_centers) {
  * @param {Array<Object>} pixels_array 像素点数组
  * @param {number} k 需要抽取出的中心点数量
  * @param {number} max_iterations 算法需要迭代的最大次数
- * @return {Array<Object>} 抽取出的中心点数组
+ * @returns {Array<Object>} 抽取出的中心点数组
  */
 export async function kmeans(pixels_array, k = 6, max_iterations = 100) {
   let centers = pixels_array.sort(() => 0.5 - Math.random()).slice(0, k);
@@ -77,7 +108,7 @@ export async function kmeans(pixels_array, k = 6, max_iterations = 100) {
 /**
  * 计算一个像素点的明度用于后续的明度排序
  * @param {Array<number>} point 需要计算明度的点
- * @return {Number} 最后得出的明度
+ * @returns {Number} 最后得出的明度
  * 根据 `https://www.w3.org/TR/WCAG20/#relativeluminancedef` 公式得出
  */
 export function getLuminance(point) {
@@ -95,7 +126,7 @@ export function getLuminance(point) {
 /**
  * 获取与#000000的绝对欧氏距离用于亮度排序
  * @param {Array<number>} point 需要计算的点
- * @returns {number} 欧氏距离
+ * @returnss {number} 欧氏距离
  */
 export function getBrightness(point) {
   return euclideanDistance(point, [0, 0, 0]);
@@ -106,7 +137,7 @@ export function getBrightness(point) {
  * @param {Array<Object>} points 需要进行排列的颜色点
  * @param {boolean} order 是否按照由小到大排列
  * @param {Function} algorithm 遵从何种方法进行排序
- * @return {Array<Object>} 最后生成的排序后的颜色集合
+ * @returns {Array<Object>} 最后生成的排序后的颜色集合
  */
 export function sortColor(points, order, algorithm) {
   return order
@@ -120,7 +151,7 @@ export function sortColor(points, order, algorithm) {
  * @param {number} r
  * @param {number} g
  * @param {number} b
- * @return {string} #ffffff
+ * @returns {string} #ffffff
  */
 export function rgbToHex(r, g, b) {
   return `#${r.toString(16).padStart(2, "0")}${g

@@ -4,7 +4,7 @@
   "description": "Pick the Color Theme via Pictures",
   "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest --verbose",
     "build": "mkdir dist && babel src -d dist",
     "prepublishOnly": "npm run build"
   },
@@ -24,8 +24,7 @@
     "node": ">=14.0.0"
   },
   "files": [
-    "src",
-    "bin"
+    "src"
   ],
   "repository": {
     "type": "git",
