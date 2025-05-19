@@ -1,6 +1,6 @@
 {
   "name": "picture-color-theme-picker",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Pick the Color Theme via Pictures",
   "main": "src/index.js",
   "scripts": {
