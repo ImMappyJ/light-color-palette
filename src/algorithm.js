@@ -11,6 +11,17 @@ function euclideanDistance(point1, point2) {
       Math.pow(point1[2] - point2[2], 2)
   );
 }
+/**
+ * 获取该颜色的饱和度
+ * @param {Array<number>} point
+ * @return {number} 饱和度
+ */
+export function getSaturation(point) {
+  const rgb = point.map((c) => c / 255);
+  const m = Math.min(...rgb);
+  const V = Math.max(...rgb);
+  return (V - m) / V;
+}
 
 /**
  * 判断算法是否收敛

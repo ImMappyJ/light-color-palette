@@ -4,6 +4,7 @@ import {
   sortColor,
   getLuminance,
   getBrightness,
+  getSaturation,
 } from "./algorithm";
 import { loadImage, getPixelsArray } from "./utils";
 
@@ -40,6 +41,16 @@ export class PicthePicker {
    */
   sortByBrightness(order) {
     sortColor(this.points, order, getBrightness);
+    return this;
+  }
+
+  /**
+   * 进行饱和度排序
+   * @param {boolean} order
+   * @returns {PicthePicker}
+   */
+  sortBySaturation(order) {
+    sortColor(this.points, order, getSaturation);
     return this;
   }
 
