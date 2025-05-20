@@ -13,5 +13,5 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
   },
-  base: process.env.NODE_ENV === 'production' ? '/picture-color-theme-picker/' : '/',
+  base: process.env.NODE_ENV === 'production' ? '/light-color-palette/' : '/',
 })

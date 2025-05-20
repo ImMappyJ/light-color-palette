@@ -1,5 +1,5 @@
 {
-  "name": "picture-color-theme-picker-demo",
+  "name": "light-color-palette-demo",
   "version": "0.0.1",
   "private": true,
   "type": "module",
@@ -10,7 +10,8 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
-    "picture-color-theme-picker": "^1.0.3",
+    "light-color-palette": "^1.0.1",
+    "lucide-vue-next": "^0.511.0",
     "vue": "^3.5.13"
   },
   "devDependencies": {
