@@ -64,3 +64,60 @@ export function getPixelsArray(pic) {
   }
   return pixels_array;
 }
+
+/**
+ * 将8bitRGB格式转换为十六进制
+ * (255,255,255) => #ffffff
+ * @param {number} r
+ * @param {number} g
+ * @param {number} b
+ * @returns {string} #ffffff
+ */
+export function rgbToHex(r, g, b) {
+  return `#${r.toString(16).padStart(2, "0")}${g
+    .toString(16)
+    .padStart(2, "0")}${b.toString(16).padStart(2, "0")}`;
+}
+
+/**
+ * 将HSV颜色模型转换为RGB
+ * @param {number} h
+ * @param {number} s
+ * @param {number} v
+ * @returns {Array<number>} - RGB数组，格式为[r, g, b]，每个值范围0-255
+ */
+export function hsvToRgb(h, s, v) {
+  h = ((h % 360) + 360) % 360;
+  s = s / 100;
+  v = v / 100;
+
+  if (s === 0) {
+    const gray = Math.round(v * 255);
+    return [gray, gray, gray];
+  }
+
+  const c = v * s;
+  const x = c * (1 - Math.abs(((h / 60) % 2) - 1));
+  const m = v - c;
+
+  let r1, g1, b1;
+  if (h >= 0 && h < 60) {
+    [r1, g1, b1] = [c, x, 0];
+  } else if (h >= 60 && h < 120) {
+    [r1, g1, b1] = [x, c, 0];
+  } else if (h >= 120 && h < 180) {
+    [r1, g1, b1] = [0, c, x];
+  } else if (h >= 180 && h < 240) {
+    [r1, g1, b1] = [0, x, c];
+  } else if (h >= 240 && h < 300) {
+    [r1, g1, b1] = [x, 0, c];
+  } else {
+    [r1, g1, b1] = [c, 0, x];
+  }
+
+  const r = Math.round((r1 + m) * 255);
+  const g = Math.round((g1 + m) * 255);
+  const b = Math.round((b1 + m) * 255);
+
+  return [r, g, b];
+}

@@ -1,14 +1,14 @@
 import {
   kmeans,
-  rgbToHex,
   sortColor,
   getLuminance,
   getBrightness,
   getSaturation,
+  getMonochromaticColors,
 } from "./algorithm";
-import { loadImage, getPixelsArray } from "./utils";
+import { loadImage, getPixelsArray, rgbToHex } from "./utils";
 
-export class PicthePicker {
+export class LCPalette {
   constructor(src) {
     this.src = src;
   }
@@ -16,7 +16,7 @@ export class PicthePicker {
    * 使用K-means算法生成主题色函数
    * @param {string | Image} src 图片资源
    * @param {number} k 需要生成的颜色数量
-   * @returns {Promise<PicthePicker>}
+   * @returns {Promise<LCPalette>}
    */
   async genTheme(k) {
     this.img = await loadImage(this.src);
@@ -27,7 +27,7 @@ export class PicthePicker {
   /**
    * 进行明度排序
    * @param {boolean} order 排列顺序 true为低到高
-   * @returns {PicthePicker}
+   * @returns {LCPalette}
    */
   sortByLuminance(order) {
     sortColor(this.points, order, getLuminance);
@@ -37,7 +37,7 @@ export class PicthePicker {
   /**
    * 进行亮度排序
    * @param {boolean} order 排列顺序 true为低到高
-   * @returns {PicthePicker}
+   * @returns {LCPalette}
    */
   sortByBrightness(order) {
     sortColor(this.points, order, getBrightness);
@@ -47,7 +47,7 @@ export class PicthePicker {
   /**
    * 进行饱和度排序
    * @param {boolean} order
-   * @returns {PicthePicker}
+   * @returns {LCPalette}
    */
   sortBySaturation(order) {
     sortColor(this.points, order, getSaturation);
@@ -71,3 +71,5 @@ export class PicthePicker {
     return this.points;
   }
 }
+
+export { getMonochromaticColors };

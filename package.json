@@ -1,7 +1,7 @@
 {
-  "name": "picture-color-theme-picker",
-  "version": "1.0.4",
-  "description": "Pick the Color Theme via Pictures",
+  "name": "light-color-palette",
+  "version": "1.0.0",
+  "description": "A light js package to use color",
   "main": "src/index.js",
   "scripts": {
     "test": "jest --verbose",
@@ -13,7 +13,8 @@
     "color extraction",
     "k-means",
     "nodejs",
-    "npm"
+    "npm",
+    "palette"
   ],
   "author": "MappyJ",
   "license": "MIT",
@@ -28,12 +29,12 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ImMappyJ/picture-color-theme-picker.git"
+    "url": "git+https://github.com/ImMappyJ/light-color-palette.git"
   },
   "bugs": {
-    "url": "https://github.com/ImMappyJ/picture-color-theme-picker/issues"
+    "url": "https://github.com/ImMappyJ/light-color-palette/issues"
   },
-  "homepage": "https://github.com/ImMappyJ/picture-color-theme-picker#readme",
+  "homepage": "https://github.com/ImMappyJ/light-color-palette#readme",
   "devDependencies": {
     "@babel/core": "^7.27.1",
     "@babel/preset-env": "^7.27.2",
