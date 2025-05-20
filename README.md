@@ -1,5 +1,5 @@
 <h2 align="center">
-LightColorPalatte
+LightColorPalette
 </h2>
 
 
@@ -16,7 +16,7 @@ LightColorPalatte
 ![Website](https://img.shields.io/website?url=https%3A%2F%2Fwww.itsmygo.cn%2Flight-color-palette%2F&style=flat&label=DemoWeb)
 
 ## 简介
-LightColorPalatte是一个强大轻量级的JavaScript库，用于从图片中提取主题色。它使用K-means算法对图片的像素进行聚类分析，从而得到代表性的主题色。此外，该库还支持对提取的颜色进行明度、亮度和饱和度排序，提供将RGB颜色转换为十六进制颜色代码的功能，以及生成指定颜色的单色系颜色列表。
+LightColorPalette是一个强大轻量级的JavaScript库，用于从图片中提取主题色。它使用K-means算法对图片的像素进行聚类分析，从而得到代表性的主题色。此外，该库还支持对提取的颜色进行明度、亮度和饱和度排序，提供将RGB颜色转换为十六进制颜色代码的功能，以及生成指定颜色的单色系颜色列表。
 
 [使用DEMO](https://www.itsmygo.cn/light-color-palette)
 
