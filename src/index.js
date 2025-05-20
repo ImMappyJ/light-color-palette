@@ -72,4 +72,4 @@ export class LCPalette {
   }
 }
 
-export { getMonochromaticColors };
+export { getMonochromaticColors,rgbToHex };
